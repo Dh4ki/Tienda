@@ -1,23 +1,23 @@
 'use strict'
 
-var Cliente = require('../models/cliente');
+var Admin = require('../models/admin');
 var bcrypt = require('bcrypt-nodejs');
 
-const registro_cliente = async function(req,res){
+const registro_admin = async function(req,res){
 
     var data = req.body;
-    var clientes_arr = [];
+    var admin_arr = [];
 
-    clientes_arr = await Cliente.find({email:data.email});
+    admin_arr = await Admin.find({email:data.email});
 
-    if (clientes_arr.length == 0) {
+    if (admin_arr.length == 0) {
         //ENCRIPTA CONTRASEÑA
         if (data.password) {
             bcrypt.hash(data.password,null,null, async function(err,hash){
                 //VERIFICA SI HAY CONTRASEÑA ENCRIPTADA
                 if (hash) {
                     data.password = hash;
-                    var reg = await Cliente.create(data);
+                    var reg = await Admin.create(data);
                     res.status(200).send({data: reg});
                 }else{
                     res.status(200).send({message:'ErrorServer', data:undefined});            
@@ -32,5 +32,5 @@ const registro_cliente = async function(req,res){
 }
 
 module.exports = {
-    registro_cliente
+    registro_admin
 }
