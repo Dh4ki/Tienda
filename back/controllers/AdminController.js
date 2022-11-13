@@ -38,6 +38,7 @@ const login_admin = async function(req,res){
 
     admin_arr = await Admin.find({email:data.email});
     if(admin_arr.length == 0) {
+        
         res.status(200).send({message: 'No se encontro el correo', data: undefined});        
     }else{
         //LOGIN
