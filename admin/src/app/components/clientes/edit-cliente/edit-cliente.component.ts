@@ -15,6 +15,8 @@ export class EditClienteComponent implements OnInit {
   public cliente : any = [];
   public id:any;
   public token;
+  public load_btn = false;
+  public load_data = true;
 
   constructor(
     private _route : ActivatedRoute,
@@ -35,24 +37,27 @@ export class EditClienteComponent implements OnInit {
             console.log(response);
             if (response.data == undefined) {
               this.cliente = undefined;
+              this.load_data = false;
             }else{
               this.cliente = response.data;
+              this.load_data = false;
             }
           },
           error=>{
-            
-            
+          
           }
         );
-        
       }
     )
   }
 
   actualizar(updateForm:any){
     if (updateForm.valid) {
+      this.load_btn = true;
       this._clienteService.actualizar_cliente_admin(this.token, this.id, this.cliente).subscribe(
         response=>{
+          console.log(response);
+          
           iziToast.show({
             title: 'SUCCESS',
             titleColor: '#1DC74C',
@@ -61,12 +66,14 @@ export class EditClienteComponent implements OnInit {
             position: 'topRight',
             message: 'Se actualizó correctamente el cliente.'
           });
+
+          this.load_btn = false;
+
           this._router.navigate(['/panel/clientes']);
         },error=>{
           console.log(error);
-          
         }
-      )
+      );
     }else{
       iziToast.show({
         title: 'ERROR',
@@ -78,5 +85,4 @@ export class EditClienteComponent implements OnInit {
       });
     }
   }
-
 }
