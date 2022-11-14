@@ -43,7 +43,6 @@ export class CreateClienteComponent implements OnInit {
             position: 'topRight',
             message: 'Se registró correctamente el nuevo cliente.'
           });
-
           this.cliente = {
             genero: '',
             nombres: '',
@@ -53,14 +52,11 @@ export class CreateClienteComponent implements OnInit {
             dni: '',
             email: ''
           }
-
           this._router.navigate(['/panel/clientes']);
         },error=>{
           console.log(error);
-          
         }
       );
-      
     }else{
       iziToast.show({
         title: 'ERROR',
@@ -72,5 +68,4 @@ export class CreateClienteComponent implements OnInit {
       });
     }
   }
-
 }
