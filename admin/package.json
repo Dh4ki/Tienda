@@ -22,6 +22,7 @@
     "@auth0/angular-jwt": "^5.1.0",
     "@ng-bootstrap/ng-bootstrap": "^13.1.0",
     "jquery": "^3.6.1",
+    "ngx-tinymce": "^14.1.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
