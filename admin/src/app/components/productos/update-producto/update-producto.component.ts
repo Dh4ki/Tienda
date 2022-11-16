@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AdminService } from 'src/app/services/admin.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { GLOBAL } from 'src/app/services/GLOBAL';
 import { ProductoService } from 'src/app/services/producto.service';
 
 declare var iziToast:any;
@@ -8,54 +8,78 @@ declare var jQuery:any;
 declare var $:any;
 
 @Component({
-  selector: 'app-create-producto',
-  templateUrl: './create-producto.component.html',
-  styleUrls: ['./create-producto.component.css']
+  selector: 'app-update-producto',
+  templateUrl: './update-producto.component.html',
+  styleUrls: ['./update-producto.component.css']
 })
-export class CreateProductoComponent implements OnInit {
+export class UpdateProductoComponent implements OnInit {
 
-  
-  public producto : any = {
-    categoria: ''
-  };
-  public file:any=undefined;
-  public imgSelect : any | ArrayBuffer = 'assets/img/01.jpg';
+  public producto : any = {};
   public config : any = {};
-  public token;
+  public imgSelect? : String | ArrayBuffer;
   public load_btn = false;
-
+  public id:any;
+  public token;
+  public url;
+  public file:any=undefined;
 
   constructor(
-    private _productoSercive : ProductoService,
-    private _adminServide : AdminService,
+    private _route : ActivatedRoute,
+    private _productoService: ProductoService,
     private _router: Router
-  ) { 
+  ) {
     this.config = {
       height: 500
     }
-    this.token = this._adminServide.getToken();
-  }
+    this.token = localStorage.getItem('token');
+    this.url = GLOBAL.url;
+    
+   }
 
   ngOnInit(): void {
+    this._route.params.subscribe(
+      params=>{
+        this.id = params['id'];
+        console.log(this.id);
+        this._productoService.obtener_producto_admin(this.id, this.token).subscribe(
+          response=>{
+            if (response.data == undefined) {
+              this.producto = undefined;
+            }else{
+              this.producto = response.data;
+              this.imgSelect = this.url+'obtener_portada/'+this.producto.portada;
+            }
+            
+          },error=>{
+            console.log(error);
+            
+          }
+        )
+
+      }
+    );
   }
 
-  registro(registroForm:any){
-    if (registroForm.valid) {
-      if (this.file == undefined) {
-        iziToast.show({
-          title: 'ERROR',
-          titleColor: '#FF0000',
-          color: '#FFF',
-          class:  'text-danger',
-          position: 'topRight',
-          message: 'Debe subir una portada para registrar'
-        });
-      }else{
-        console.log(this.producto);
-      console.log(this.file);
+  actualizar(actualizarForm:any){
+    if (actualizarForm.valid) {
+      
+      var data : any = {};
+
+      if (this.file != undefined) {
+        data.portada = this.file;
+
+      };
+
+      data.titulo = this.producto.titulo;
+      data.stock = this.producto.stock;
+      data.precio = this.producto.precio;
+      data.categoria = this.producto.categoria;
+      data.descripcion = this.producto.descripcion;
+      data.contenido = this.producto.contenido;
+
       this.load_btn = true;
 
-      this._productoSercive.registro_producto_admin(this.token, this.producto, this.file,).subscribe(
+      this._productoService.actualizar_producto_admin(this.token,data,this.id).subscribe(
         response=>{
           iziToast.show({
             title: 'SUCCESS',
@@ -63,21 +87,19 @@ export class CreateProductoComponent implements OnInit {
             color: '#FFF',
             class:  'text-success',
             position: 'topRight',
-            message: 'Se registró correctamente el nuevo producto.'
+            message: 'Se actualizó correctamente el nuevo producto.'
           });
 
           this.load_btn = false;
 
           this._router.navigate(['/panel/productos']);
-          
         },error=>{
           console.log(error);
-          this.load_btn = false;
           
         }
       );
+      console.log(this.file);
       
-      }
     }else{
       iziToast.show({
         title: 'ERROR',
@@ -88,10 +110,6 @@ export class CreateProductoComponent implements OnInit {
         message: 'Los datos del formulario no son validos'
       });
       this.load_btn = false;
-      
-      $('#input-portada').text('Seleccionar imagen');
-      this. imgSelect = 'assets/img/01.jpg';
-      this.file = undefined;
     }
   }
 
@@ -99,7 +117,7 @@ export class CreateProductoComponent implements OnInit {
     var file:any;
     if (event.target.files && event.target.files[0]) {
       file = <File>event.target.files[0];
-      console.log(file);
+
       
     }else{
       iziToast.show({
@@ -114,12 +132,15 @@ export class CreateProductoComponent implements OnInit {
     
     if (file.size <= 4000000) {
 
-      if (file.type == 'image/png' || file.type == 'image/webp' || file.type == 'image/jpg' || file.type == 'image/gif' || file.type == 'image/jepg') {
+      if (file.type == 'image/png' || file.type == 'image/webp' || file.type == 'image/gif' ||  file.type == 'image/jpg' || file.type == 'image/jpeg') {
 
       const reader = new FileReader();
-      reader.onload = e => this.imgSelect = reader.result;
+      reader.onload = e => this.imgSelect = reader.result!;
+      console.log(this.imgSelect);
+      
       
       reader.readAsDataURL(file);
+      console.log(file);
 
       $('#input-portada').text(file.name);
       this.file = file;
