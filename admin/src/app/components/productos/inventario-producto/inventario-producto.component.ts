@@ -15,8 +15,11 @@ declare var $:any;
 export class InventarioProductoComponent implements OnInit {
   public id:any;
   public token;
+  public _iduser;
   public producto : any = {};
   public inventarios : Array<any>=[];
+  public inventario : any = {};
+
   public load_btn = false;
 
   constructor(
@@ -24,35 +27,33 @@ export class InventarioProductoComponent implements OnInit {
     private _productoService : ProductoService
   ) { 
     this.token = localStorage.getItem('token');
+    this._iduser = localStorage.getItem('_id');
+    console.log(this._iduser);
+    
   }
 
   ngOnInit(): void {
     this._route.params.subscribe(
       params=>{
         this.id = params['id'];
-        console.log(this.id);
         this._productoService.obtener_producto_admin(this.id, this.token).subscribe(
           response=>{
             if (response.data == undefined) {
               this.producto = undefined;
             }else{
               this.producto = response.data;
-              console.log(this.producto);
 
               this._productoService.listar_inventario_producto_admin(this.producto._id,this.token).subscribe(
                 response=>{
                   this.inventarios = response.data;
-                  console.log(this.inventarios);
-                  
+
                 },error=>{
-                  console.log(error);
                   
                 }
               )
             }
             
           },error=>{
-            console.log(error);
             
           }
         )
@@ -102,6 +103,56 @@ export class InventarioProductoComponent implements OnInit {
         this.load_btn = false;
       }
     )
+  }
+
+  registro_inventario(inventarioForm:any){
+    if (inventarioForm.valid) {
+      let data = {
+        producto: this.producto._id,
+        cantidad: inventarioForm.value.cantidad,
+        admin: this._iduser,
+        proveedor: inventarioForm.value.proveedor
+      }
+
+      console.log(data);
+      
+      
+      this._productoService.registro_inventario_producto_admin(data,this.token).subscribe(
+        response=>{
+          iziToast.show({
+            title: 'SUCCESS',
+            titleColor: '#1DC74C',
+            color: '#FFF',
+            class:  'text-success',
+            position: 'topRight',
+            message: 'Se agregó el nuevo stock al producto.'
+          });
+
+          this._productoService.listar_inventario_producto_admin(this.producto._id,this.token).subscribe(
+            response=>{
+              this.inventarios = response.data;
+
+            },error=>{
+              
+            }
+          )
+          
+        },error=>{
+          console.log(error);
+          
+        }
+      )
+      
+    }else{
+      iziToast.show({
+        title: 'ERROR',
+        titleColor: '#FF0000',
+        color: '#FFF',
+        class:  'text-danger',
+        position: 'topRight',
+        message: 'Los datos del formulario no son validos'
+      });
+    }
   }
 
 }
