@@ -46,7 +46,7 @@
                       </div>
 
                       <div class="col-lg-12 form-group">
-                        <textarea class="form-control" required rows="15" name="contenido" [(ngModel)]="producto.contenido"></textarea>
+                        <tinymce [config]="config" name="contenido" [(ngModel)]="producto.contenido"></tinymce>
                       </div>
 
                     </div>
@@ -57,11 +57,11 @@
                         <label for="">Portada</label>
                         <div class="custom-file">
                           <input class="custom-file-input" type="file" id="file-input" (change)="fileChangeEvent($event)">
-                          <label class="custom-file-label" for="file-input">Seleccionar imagen</label>
+                          <label class="custom-file-label" id="input-portada" for="file-input" style="white-space:nowrap;overflow:hidden">Seleccionar imagen</label>
                         </div>
                     </div>
                     <div class="col-lg-12">
-                      <img src="assets/img/01.jpg" class="img-thumbnail" alt="Rounded image">
+                      <img [src]="imgSelect" class="img-thumbnail" alt="Rounded image">
                     </div>
                   </div>
                 </div>

@@ -8,6 +8,8 @@ import { NgbPaginationModule } from "@ng-bootstrap/ng-bootstrap";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { NgxTinymceModule } from 'ngx-tinymce';
+
 
 import { routing } from "./app.routing";
 import { InicioComponent } from './components/inicio/inicio.component';
@@ -35,7 +37,11 @@ import { CreateProductoComponent } from './components/productos/create-producto/
     FormsModule,
     HttpClientModule,
     routing,
-    NgbPaginationModule
+    NgxTinymceModule.forRoot({
+      baseURL: '../../../assets/tinymce/'
+    }),
+    NgbPaginationModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
