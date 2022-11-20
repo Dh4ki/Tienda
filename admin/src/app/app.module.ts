@@ -23,6 +23,7 @@ import { IndexProductoComponent } from './components/productos/index-producto/in
 import { UpdateProductoComponent } from './components/productos/update-producto/update-producto.component';
 import { InventarioProductoComponent } from './components/productos/inventario-producto/inventario-producto.component';
 import { ConfigComponent } from './components/config/config.component';
+import { CreateCuponComponent } from './components/cupones/create-cupon/create-cupon.component';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { ConfigComponent } from './components/config/config.component';
     UpdateProductoComponent,
     InventarioProductoComponent,
     ConfigComponent,
+    CreateCuponComponent,
 
   ],
   imports: [
