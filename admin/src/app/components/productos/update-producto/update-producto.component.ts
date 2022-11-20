@@ -118,7 +118,6 @@ export class UpdateProductoComponent implements OnInit {
     if (event.target.files && event.target.files[0]) {
       file = <File>event.target.files[0];
 
-      
     }else{
       iziToast.show({
         title: 'ERROR',
@@ -132,7 +131,7 @@ export class UpdateProductoComponent implements OnInit {
     
     if (file.size <= 4000000) {
 
-      if (file.type == 'image/png' || file.type == 'image/webp' || file.type == 'image/gif' ||  file.type == 'image/jpg' || file.type == 'image/jpeg') {
+      if (file.type == 'image/png' || file.type == 'image/webp' || file.type == 'image/jpg' ||  file.type == 'image/gif' || file.type == 'image/jpeg') {
 
       const reader = new FileReader();
       reader.onload = e => this.imgSelect = reader.result!;
