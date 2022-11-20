@@ -164,4 +164,8 @@ export class ConfigComponent implements OnInit {
   ngDoCheck(): void{
     $('.cs-file-drop-preview').html("<img src="+this.imgSelect+">");
   }
+
+  eliminar_Categoria(idx:any){
+    this.config.categorias.splice(idx,1)
+  }
 }
