@@ -63,7 +63,6 @@ export class AdminService {
     return this._http.get(this.url+'obtener_config_admin',{headers:headers});
   }
 
-
   actualiza_config_admin(data:any, token:any,id:any):Observable<any>{
     if (data.logo) {
       let headers = new HttpHeaders({'Authorization':token});
@@ -80,8 +79,11 @@ export class AdminService {
         return this._http.put(this.url+'actualiza_config_admin/'+id,data,{headers:headers});
       }
   }
-    
   
+  obtener_config_public():Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type','application/json');
+    return this._http.get(this.url+'obtener_config_public',{headers:headers});
+  }
 
   
 

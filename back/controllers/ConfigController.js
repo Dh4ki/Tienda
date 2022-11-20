@@ -16,7 +16,6 @@ const obtener_config_admin = async function (req,res){
     }
 }
 
-
 const actualiza_config_admin = async function(req,res){
     if (req.user) {
         if (req.user.role == 'admin') {
@@ -74,8 +73,16 @@ const obtener_logo = async function(req,res){
     });
 }
 
+const obtener_config_public = async function (req,res){
+    let reg = await Config.findById({_id:"637570c6586b71e2ef014221"})
+    res.status(200).send({data:reg});
+    
+}
+
+
 module.exports = {
     actualiza_config_admin,
     obtener_config_admin,
-    obtener_logo
+    obtener_logo,
+    obtener_config_public
 }
