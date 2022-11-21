@@ -45,7 +45,7 @@ export class VariedadProductoComponent implements OnInit {
 
       }
     );
-   }
+  }
 
   ngOnInit(): void {
   }
