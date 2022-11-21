@@ -4,18 +4,20 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var ProductoSchema = Schema({
-    titulo: {type: String, require: true},
-    slug: {type: String, require: true},
-    galeria: {type: Object, require: false},
-    portada: {type: String, require: true},
-    precio: {type: Number, require: true},
-    descripcion: {type: String, require: true},
-    contenido: {type: String, require: true},
-    stock: {type: Number, require: true},
-    nventas: {type: Number, default:0, require: true},
-    npuntos: {type: Number, default:0, require: true},
-    categoria: {type: String, require: true},
-    estado: {type: String, default: 'Edicion' , require: true},
+    titulo: {type: String, required: true},
+    slug: {type: String, required: true},
+    galeria: {type: Object, required: false},
+    portada: {type: String, required: true},
+    precio: {type: Number, required: true},
+    descripcion: {type: String, required: true},
+    contenido: {type: String, required: true},
+    stock: {type: Number, required: true},
+    nventas: {type: Number, default:0, required: true},
+    npuntos: {type: Number, default:0, required: true},
+    variedades: [{type: Object, require: false}],
+    categoria: {type: String, required: true},
+    titulo_variedad: {type: String, required: false},
+    estado: {type: String, default: 'Edicion' , required: true},
     createdAt: {type: Date, default: Date.now, require: true}
 });
 
