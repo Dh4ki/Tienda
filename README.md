@@ -1,4 +1,4 @@
-# # TIENDA VIRTUAL
+#  TIENDA VIRTUAL
 
 Este repositorio contiene los avances de como se está realizando la programación para una tienda virtual en VSCODE.
 
