@@ -25,6 +25,7 @@ import { InventarioProductoComponent } from './components/productos/inventario-p
 import { ConfigComponent } from './components/config/config.component';
 import { CreateCuponComponent } from './components/cupones/create-cupon/create-cupon.component';
 import { IndexCuponComponent } from './components/cupones/index-cupon/index-cupon.component';
+import { UpdateCuponComponent } from './components/cupones/update-cupon/update-cupon.component';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import { IndexCuponComponent } from './components/cupones/index-cupon/index-cupo
     ConfigComponent,
     CreateCuponComponent,
     IndexCuponComponent,
+    UpdateCuponComponent,
 
   ],
   imports: [
