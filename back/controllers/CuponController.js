@@ -19,7 +19,7 @@ const listar_cupones_admin = async function(req,res){
         if (req.user.role == 'admin') {
             var filtro = req.params['filtro'];
 
-            let reg = await Cupon.find({codigo: new RegExp(filtro, 'i')});
+            let reg = await Cupon.find({codigo: new RegExp(filtro, 'i')}).sort({createdAt: -1});
             res.status(200).send({data: reg});
         }else{
             res.status(500).send({message: 'NoAccess'});
@@ -71,9 +71,27 @@ const actualizar_cupon_admin = async function(req,res){
     }
 }
 
+const eliminar_cupon_admin = async function(req,res){
+    if (req.user) {
+        if (req.user.role == 'admin') {
+            
+            var id = req.params['id'];
+
+            let reg = await Cupon.findByIdAndRemove({_id:id});
+            res.status(200).send({data:reg});
+
+        }else{
+            res.status(500).send({message: 'NoAccess'});
+        }
+    }else{
+        res.status(500).send({message: 'NoAccess'});
+    }
+}
+
 module.exports={
     registro_cupon_admin,
     listar_cupones_admin,
     obtener_cupon_admin,
-    actualizar_cupon_admin
+    actualizar_cupon_admin,
+    eliminar_cupon_admin
 }
