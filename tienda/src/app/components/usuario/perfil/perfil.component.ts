@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ClienteService } from 'src/app/services/cliente.service';
 
 declare var iziToast:any;
+declare var JQuery:any;
+declare var $:any;
 
 @Component({
   selector: 'app-perfil',
@@ -34,6 +36,7 @@ export class PerfilComponent implements OnInit {
 
   actualizar(actualizarForm:any){
     if (actualizarForm.valid) {
+      this.cliente.password = $('input_password').val();
       this._clienteService.actualizar_perfil_cliente_guest(this.token,this.cliente,this.id).subscribe(
         response=>{
           iziToast.show({
