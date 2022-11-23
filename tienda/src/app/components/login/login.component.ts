@@ -25,8 +25,6 @@ export class LoginComponent implements OnInit {
     }
   }
 
-
-
   ngOnInit(): void {
   }
 
@@ -52,12 +50,14 @@ export class LoginComponent implements OnInit {
             this.usuario = response.data;
             localStorage.setItem('token',response.token);
             localStorage.setItem('_id',response.data._id);
+            
             this._router.navigate(['/']);
           }
         },error=>{
           console.log(error);
-        });
-    }else{
+        }
+    );
+  }else{
       iziToast.show({
         title: 'ERROR',
         titleColor: '#FF0000',

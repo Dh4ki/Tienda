@@ -19,7 +19,7 @@ export class SiderbarComponent implements OnInit {
     this.token = localStorage.getItem('token');
     this.id = localStorage.getItem('_id');
 
-    if (this.token) {
+    /*if (this.token) {
       this._clienteService.obtener_cliente_guest(this.token,this.id).subscribe(
         response=>{
           this.user = response.data;
@@ -34,7 +34,7 @@ export class SiderbarComponent implements OnInit {
           this.user = undefined;
         }
       );
-    }
+    }*/
    }
 
   ngOnInit(): void {
