@@ -1,6 +1,7 @@
 #  TIENDA VIRTUAL
 
-Este repositorio contiene los avances de como se está realizando la programación para una tienda virtual en VSCODE.
+Este repositorio contiene los avances de como se está realizando la programación para una tienda virtual,
+la programacion para esta estará divida en el backend donde se usará el entorno de NodeJs y en el frontend donde se usará el framework Angular.
 
 # HERRAMIENTAS UTILIZADAS
 
@@ -8,9 +9,9 @@ Para este proyecto se necesitarán descargar e instalar las siguientes herramien
 Si ya lo tiene instalado, omitir estos pasos.
 
 ### Visual Stucio Code
-### Nojdejs
-### Mongodb
-### Robo3t
+### NojdeJs
+### MongoDB
+### Robo 3t
 ### Git
 ### Postman
 
