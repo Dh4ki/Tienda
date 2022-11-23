@@ -46,8 +46,6 @@ export class AdminService {
       if (!decodedToken) {
         console.log('NO ES VALIDO');
         localStorage.removeItem('token');
-
-        console.log(decodedToken);        
         return false;
       }
     } catch (error) {
