@@ -7,12 +7,13 @@ Este repositorio contiene los avances de como se está realizando la programaci�
 Para este proyecto se necesitarán descargar e instalar las siguientes herramientas.
 Si ya lo tiene instalado, omitir estos pasos.
 
-## Visual Stucio Code
-## Nojdejs
-## Mongodb
-## Robo3t
-## Git
+### Visual Stucio Code
+### Nojdejs
+### Mongodb
+### Robo3t
+### Git
 ### Postman
+
 
 # INICIAR PROGRAMA
 
