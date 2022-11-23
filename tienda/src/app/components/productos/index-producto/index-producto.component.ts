@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+declare var noUiSlider:any;
+declare var $:any;
+
 @Component({
   selector: 'app-index-producto',
   templateUrl: './index-producto.component.html',
@@ -10,6 +13,27 @@ export class IndexProductoComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
+    var slider : any = document.getElementById('slider');
+    noUiSlider.create(slider, {
+        start: [0, 100],
+        connect: true,
+        range: {
+            'min': 0,
+            'max': 100
+        },
+        tooltips: [true,true],
+        pips: {
+          mode: 'count', 
+          values: 5,
+        }
+    });
+
+    slider.noUiSlider.on('update', function (values:any) {
+        $('.cs-range-slider-value-min').val(values[0]);
+        $('.cs-range-slider-value-max').val(values[1]);
+    });
+    $('.noUi-tooltip').css('font-size','11px');
   }
 
 }
