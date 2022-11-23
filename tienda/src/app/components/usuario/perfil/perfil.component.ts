@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ClienteService } from 'src/app/services/cliente.service';
 
 declare var iziToast:any;
-declare var JQuery:any;
+
 declare var $:any;
 
 @Component({
@@ -36,7 +36,9 @@ export class PerfilComponent implements OnInit {
 
   actualizar(actualizarForm:any){
     if (actualizarForm.valid) {
-      this.cliente.password = $('input_password').val();
+      console.log(this.cliente.password);
+      this.cliente.password = $('#input_password').val();
+      console.log(this.cliente.password);
       this._clienteService.actualizar_perfil_cliente_guest(this.token,this.cliente,this.id).subscribe(
         response=>{
           iziToast.show({
@@ -47,9 +49,8 @@ export class PerfilComponent implements OnInit {
             position: 'topRight',
             message: 'Se actualizó su perfil correctamente.'
           });
-          
         }
-      )
+      );
       
     }else{
       iziToast.show({

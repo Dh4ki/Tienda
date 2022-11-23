@@ -187,7 +187,7 @@ const actualizar_perfil_cliente_guest = async function(req,res){
     if (req.user) {
         var id = req.params['id'];
         var data = req.body;
-
+        
         console.log(data.password);
 
         if (data.password) {
