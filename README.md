@@ -2,41 +2,44 @@
 
 Este repositorio contiene los avances de como se está realizando la programación para una tienda virtual en VSCODE.
 
-## HERRAMIENTAS UTILIZADAS
+# HERRAMIENTAS UTILIZADAS
 
-Para este proyecto se necesitarán descargar las siguientes herramientas.
+Para este proyecto se necesitarán descargar e instalar las siguientes herramientas.
 Si ya lo tiene instalado, omitir estos pasos.
 
-Así mismo, es necesario instalar las siguientes [herramientas](/tools/TOOLS.md) los cuales deben ejecutarse en el equipo donde se lleve a cabo los  laboratorios.
+## Visual Stucio Code
+## Nojdejs
+## Mongodb
+## Robo3t
+## Git
+### Postman
 
-## class-01
-## class-02
-## class-03
+# INICIAR PROGRAMA
 
-# Block Master
+En este proyecto la carpeta admin y tienda corren en el mismo puerto 4200, mientras que el back en el 4201.
+Si se desea levantar ambos servicios(admin y tienda), configurar con otro puerto en uno de estos para que no haya conflicto.
 
-En este proyecto encontraremos un basto catálogo de películas junto con la información relacionada.
+## Back
 
-## Descargar dependencias
+Ejecutar el siguiente comando en el terminal.
 
 ```console
-npm install
+npm start
 ```
 
-## Compilar proyecto
+## Admin
 
 ```console
-npm build
+ng serve
 ```
 
-## Ejecutar proyecto
+## Tienda
 
 ```console
-npm run start
+ng serve
 ```
 
 ## Abrir aplicación
 
-Abrir browser con ruta http://localhost:3000/
+Abrir browser con ruta http://localhost:4200/
 
-## prueba
