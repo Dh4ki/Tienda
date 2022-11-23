@@ -30,11 +30,15 @@ npm start
 
 ## Admin
 
+Ejecutar el siguiente comando en el terminal.
+
 ```console
 ng serve
 ```
 
 ## Tienda
+
+Ejecutar el siguiente comando en el terminal.
 
 ```console
 ng serve
