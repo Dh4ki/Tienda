@@ -59,38 +59,38 @@ export class UpdateProductoComponent implements OnInit {
               this.producto = response.data;
               this.imgSelect = this.url+'obtener_portada/'+this.producto.portada;
             }
-            
           },error=>{
             console.log(error);
-            
           }
         )
-
       }
     );
   }
 
   actualizar(actualizarForm:any){
     if (actualizarForm.valid) {
+      console.log(this.producto);
+      console.log(this.file);
       
       var data : any = {};
 
       if (this.file != undefined) {
         data.portada = this.file;
-
-      };
-
+      }
+      
       data.titulo = this.producto.titulo;
       data.stock = this.producto.stock;
       data.precio = this.producto.precio;
       data.categoria = this.producto.categoria;
       data.descripcion = this.producto.descripcion;
       data.contenido = this.producto.contenido;
-
+      console.log(this.file);
+      
       this.load_btn = true;
-
-      this._productoService.actualizar_producto_admin(this.token,data,this.id).subscribe(
+      
+      this._productoService.actualizar_producto_admin(data,this.id,this.token).subscribe(
         response=>{
+          console.log(response);
           iziToast.show({
             title: 'SUCCESS',
             titleColor: '#1DC74C',
@@ -99,16 +99,15 @@ export class UpdateProductoComponent implements OnInit {
             position: 'topRight',
             message: 'Se actualizó correctamente el nuevo producto.'
           });
-
+          console.log(this.file);
           this.load_btn = false;
 
           this._router.navigate(['/panel/productos']);
         },error=>{
           console.log(error);
-          
+          this.load_btn = false;
         }
-      );
-      console.log(this.file);
+      )
       
     }else{
       iziToast.show({

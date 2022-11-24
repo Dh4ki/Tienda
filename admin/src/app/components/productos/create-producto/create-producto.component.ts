@@ -122,7 +122,7 @@ export class CreateProductoComponent implements OnInit {
     
     if (file.size <= 4000000) {
 
-      if (file.type == 'image/png' || file.type == 'image/webp' || file.type == 'image/jpg' || file.type == 'image/gif' || file.type == 'image/jepg') {
+      if (file.type == 'image/png' || file.type == 'image/webp' || file.type == 'image/jpg' || file.type == 'image/gif' || file.type == 'image/jpeg') {
 
       const reader = new FileReader();
       reader.onload = e => this.imgSelect = reader.result;

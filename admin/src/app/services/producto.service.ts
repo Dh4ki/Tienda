@@ -41,7 +41,7 @@ export class ProductoService {
     return this._http.get(this.url+'obtener_producto_admin/'+id,{headers:headers});
   }
 
-  actualizar_producto_admin(token:any,id:any, data:any):Observable<any>{
+  actualizar_producto_admin(data:any,id:any,token:any):Observable<any>{
     if (data.portada) {
     let headers = new HttpHeaders({'Authorization':token});
 
@@ -56,7 +56,7 @@ export class ProductoService {
     return this._http.put(this.url+'actualizar_producto_admin/'+id,fd,{headers:headers});
     }else{
       let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
-      return this._http.put(this.url+'actualizar_producto_admin/'+data,id,{headers:headers});
+      return this._http.put(this.url+'actualizar_producto_admin/'+id,data,{headers:headers});
     }
   }
 
