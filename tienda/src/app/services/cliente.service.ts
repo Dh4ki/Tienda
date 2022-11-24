@@ -61,4 +61,9 @@ export class ClienteService {
     return true;
   }
   
+  obtener_config_public():Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type','application/json');
+    return this._http.get(this.url+'obtener_config_public',{headers:headers});
+  }
+
 }
