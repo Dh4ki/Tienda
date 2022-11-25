@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from "rxjs";
+import { filter, Observable } from "rxjs";
 import { GLOBAL } from "./GLOBAL";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { JwtHelperService } from "@auth0/angular-jwt";
@@ -64,6 +64,11 @@ export class ClienteService {
   obtener_config_public():Observable<any>{
     let headers = new HttpHeaders().set('Content-Type','application/json');
     return this._http.get(this.url+'obtener_config_public',{headers:headers});
+  }
+
+  listar_productos_publico(filtro:any):Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type','application/json');
+    return this._http.get(this.url+'listar_productos_publico/'+filtro,{headers:headers});
   }
 
 }
