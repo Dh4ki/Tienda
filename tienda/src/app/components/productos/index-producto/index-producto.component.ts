@@ -40,11 +40,11 @@ export class IndexProductoComponent implements OnInit {
 
     var slider : any = document.getElementById('slider');
     noUiSlider.create(slider, {
-        start: [0, 100],
+        start: [0, 30],
         connect: true,
         range: {
             'min': 0,
-            'max': 100
+            'max': 30
         },
         tooltips: [true,true],
         pips: {
@@ -83,6 +83,23 @@ export class IndexProductoComponent implements OnInit {
         this.load_data = false;
       }
     );
+  }
+
+  buscar_precios(){
+    this._clienteService.listar_productos_publico(this.filter_producto).subscribe(
+      response=>{
+        this.productos = response.data;
+
+        let min = parseInt($('.cs-range-slider-value-min').val());
+    let max = parseInt($('.cs-range-slider-value-max').val());
+    console.log(min);
+    console.log(max);
+    this.productos = this.productos.filter((item)=>{
+      return item.precio >= min && item.precio <= max
+    });
+      }
+    );
+
   }
 
 }
