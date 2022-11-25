@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Route } from '@angular/router';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { GLOBAL } from 'src/app/services/GLOBAL';
 
@@ -19,9 +20,11 @@ export class IndexProductoComponent implements OnInit {
   public url:any;
   public load_data = true;
   public filter_cat_productos = 'todos';
+  public route_categoria:any;
 
   constructor(
-    private _clienteService : ClienteService
+    private _clienteService : ClienteService,
+    private _route: ActivatedRoute
   ) { 
     this.url = GLOBAL.url;
     this._clienteService.obtener_config_public().subscribe(
@@ -29,10 +32,26 @@ export class IndexProductoComponent implements OnInit {
         this.config_global = response.data;
       }
     )
-    this._clienteService.listar_productos_publico(this.filter_producto).subscribe(
-      response=>{
-        this.productos = response.data;
-        this.load_data = false;
+
+    this._route.params.subscribe(
+      params=>{
+        this.route_categoria = params['categoria'];
+        if (this.route_categoria) {
+          this._clienteService.listar_productos_publico('').subscribe(
+            response=>{
+              this.productos = response.data;
+              this.productos = this.productos.filter(item=>item.categoria.toLowerCase()==this.route_categoria);
+          this.load_data = false;
+            }
+          );
+        }else{
+          this._clienteService.listar_productos_publico('').subscribe(
+            response=>{
+              this.productos = response.data;
+          this.load_data = false;
+            }
+          );
+        }
       }
     );
   }
@@ -103,7 +122,7 @@ export class IndexProductoComponent implements OnInit {
 
   }
 
-  buscar_por_Categoria(){
+  buscar_por_categoria(){
     if (this.filter_cat_productos == 'todos') {
       this._clienteService.listar_productos_publico(this.filter_producto).subscribe(
         response=>{
@@ -115,14 +134,23 @@ export class IndexProductoComponent implements OnInit {
       this._clienteService.listar_productos_publico(this.filter_producto).subscribe(
         response=>{
           this.productos = response.data;
-          this.load_data = false;
-
           this.productos = this.productos.filter(item=>item.categoria==this.filter_cat_productos);
+          this.load_data = false;
         }
       );
       
     }
     
+  }
+  
+  reset_productos(){
+    this.filter_producto = '';
+    this._clienteService.listar_productos_publico('').subscribe(
+      response=>{
+        this.productos = response.data;
+    this.load_data = false;
+      }
+    );
   }
 
 }
