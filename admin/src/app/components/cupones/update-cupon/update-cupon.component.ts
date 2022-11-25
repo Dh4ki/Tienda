@@ -4,11 +4,13 @@ import { CuponService } from 'src/app/services/cupon.service';
 
 declare var iziToast:any;
 
+
 @Component({
   selector: 'app-update-cupon',
   templateUrl: './update-cupon.component.html',
   styleUrls: ['./update-cupon.component.css']
 })
+
 export class UpdateCuponComponent implements OnInit {
 
   public token;
