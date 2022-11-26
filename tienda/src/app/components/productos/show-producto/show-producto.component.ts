@@ -16,18 +16,27 @@ export class ShowProductoComponent implements OnInit {
   public slug:any;
   public producto : any = {};
   public url:any;
+  public productos_rec : Array<any> = [];
 
   constructor(
     private _route: ActivatedRoute,
-    private _guestSerice: GuestService,
+    private _guestService: GuestService,
   ) { 
     this.url = GLOBAL.url;
     this._route.params.subscribe(
       params=>{
         this.slug = params['slug'];
-        this._guestSerice.obtener_productos_slug_publico(this.slug).subscribe(
+        this._guestService.obtener_productos_slug_publico(this.slug).subscribe(
           response=>{
             this.producto = response.data;
+
+            this._guestService.listar_productos_recomendado_publico(this.producto.categoria).subscribe(
+              response=>{
+                this.productos_rec = response.data;
+
+                
+              }
+            );
             
           }
         );
@@ -59,12 +68,6 @@ export class ShowProductoComponent implements OnInit {
         lightGallery(e[t], { selector: ".cs-gallery-item", download: !1, videojs: !0, youtubePlayerParams: { modestbranding: 1, showinfo: 0, rel: 0 }, vimeoPlayerParams: { byline: 0, portrait: 0 } });
       }
     }
-
-    },500)
-    
-
-    
-
     tns({
       container: '.cs-carousel-inner-two',
       controlsText: ['<i class="cxi-arrow-left"></i>', '<i class="cxi-arrow-right"></i>'],
@@ -95,6 +98,11 @@ export class ShowProductoComponent implements OnInit {
         }
       }
     });
+
+    },500)
+    
+
+    
 
   }
 
