@@ -49,9 +49,9 @@
               <div class="form-inline flex-nowrap d-none d-sm-flex mr-3 mr-xl-5">
                 <label for="pager-top" class="font-weight-bold text-nowrap mr-2 pr-1 d-none d-lg-block">Ver</label>
                 <select id="pager-top" class="custom-select" name="pageSize" [(ngModel)]="pageSize">
-                  <option value="3">3</option>
-                  <option value="6">6</option>
-                  <option value="9">9</option>
+                  <option>12</option>
+                  <option>24</option>
+                  <option>48</option>
                 </select>
                 <span class="font-size-sm text-muted text-nowrap ml-2 d-none d-lg-block">Productos por página</span>
               </div>
@@ -213,7 +213,7 @@
                 <div class="col pb-sm-2 mb-grid-gutter" *ngFor="let item of productos | slice: (page-1)*pageSize: (page-1) * pageSize + pageSize">
                   <div class="card card-product mx-auto">
                     <div class="card-product-img">
-                      <a href="shop-single.html" class="card-img-top">
+                      <a [routerLink]="['/productos/',item.slug]" routerLinkActive="router-link-active" class="card-img-top">
                         <img [src]="url +'obtener_portada/'+item.portada" alt="Product image">
                       </a>
                       <div class="card-product-widgets-top">
@@ -231,7 +231,7 @@
                     </div>
                     <div class="card-body pb-2">
                       <h3 class="card-product-title text-truncate mb-2">
-                        <a href="shop-single.html" class="nav-link">{{item.titulo}}</a>
+                        <a [routerLink]="['/productos/',item.slug]" routerLinkActive="router-link-active" class="nav-link">{{item.titulo}}</a>
                       </h3>
                       <div class="d-flex align-items-center">
                         <span class="h5 d-inline-block mb-0">S/. {{item.precio}}</span>
@@ -262,7 +262,7 @@
             <div class="d-flex align-items-center pt-md-4">
               <div class="form-inline flex-nowrap mr-3 mr-xl-5 pt-1">
                 <label for="sorting-top" class="font-weight-bold text-nowrap mr-2 pr-1 d-none d-md-block">Ordenar por</label>
-                <select id="sorting-top" class="custom-select" name="sort_by" [(ngModel)]="sort_by" (change)="orden_por()">
+                <select id="sorting-top" class="custom-select" [(ngModel)]="sort_by" (change)="orden_por()">
                   <option value="Defecto">Defecto</option>
                   <option value="Popularidad">Popularidad</option>
                   <option value="+-Precio">Mayor - menor precio</option>
@@ -274,9 +274,9 @@
               <div class="form-inline flex-nowrap d-none d-sm-flex mr-3 mr-xl-5 pt-1">
                 <label for="pager-top" class="font-weight-bold text-nowrap mr-2 pr-1 d-none d-md-block">Ver</label>
                 <select id="pager-top" class="custom-select" name="pageSize" [(ngModel)]="pageSize">
-                  <option value="3">3</option>
-                  <option value="6">6</option>
-                  <option value="9">9</option>
+                  <option>20</option>
+                  <option>72</option>
+                  <option>96</option>
                 </select>
                 <span class="font-size-sm text-muted text-nowrap ml-2 d-none d-md-block">Productos por pagina</span>
               </div>
@@ -290,3 +290,4 @@
         </div>
       </section>
 </main>
+<app-footer></app-footer>
