@@ -231,7 +231,6 @@ const registro_inventario_producto_admin = async function(req,res){
 }
 
 const actualizar_producto_variedades_admin = async function(req,res){
-
     if (req.user) {
         if (req.user.role == 'admin') {
             let id = req.params['id'];
@@ -251,7 +250,6 @@ const actualizar_producto_variedades_admin = async function(req,res){
 }
 
 const agregar_imagen_galeria_admin = async function(req,res){
-
     if (req.user) {
         if (req.user.role == 'admin') {
             let id = req.params['id'];
@@ -275,7 +273,6 @@ const agregar_imagen_galeria_admin = async function(req,res){
 }
 
 const eliminar_imagen_galeria_admin = async function(req,res){
-
     if (req.user) {
         if (req.user.role == 'admin') {
             let id = req.params['id'];
@@ -302,6 +299,13 @@ const listar_productos_publico = async function(req,res){
     res.status(200).send({data: reg});
 }
 
+const obtener_productos_slug_publico = async function(req,res){
+    var slug = req.params['slug'];
+
+    let reg = await Producto.findOne({slug: slug});
+    res.status(200).send({data: reg});
+}
+
 
 module.exports = {
     registro_producto_admin,
@@ -316,5 +320,6 @@ module.exports = {
     actualizar_producto_variedades_admin,
     agregar_imagen_galeria_admin,
     eliminar_imagen_galeria_admin,
-    listar_productos_publico
+    listar_productos_publico,
+    obtener_productos_slug_publico
 }
