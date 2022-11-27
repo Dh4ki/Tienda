@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClienteService } from 'src/app/services/cliente.service';
+import { GLOBAL } from 'src/app/services/GLOBAL';
 
 declare var $:any;
 
@@ -17,6 +18,10 @@ export class NavComponent implements OnInit {
   public user_lc : any = undefined;
   public config_global:any={};
   public op_cart = false;
+  public url;
+  public subtotal = 0;
+
+  public carrito_arr :Array<any> = [];
   
   constructor(
     private _clienteService : ClienteService,
@@ -24,6 +29,7 @@ export class NavComponent implements OnInit {
   ) { 
     this.token = localStorage.getItem('token');
     this.id = localStorage.getItem('_id');
+    this.url = GLOBAL.url;
 
     this._clienteService.obtener_config_public().subscribe(
       response=>{
@@ -38,6 +44,12 @@ export class NavComponent implements OnInit {
           localStorage.setItem('user_data', JSON.stringify(this.user));
           if (localStorage.getItem('user_data')) {
             this.user_lc = JSON.parse(localStorage.getItem('user_data')!);
+            this._clienteService.obtener_carrito_cliente(this.user_lc._id,this.token).subscribe(
+              response=>{
+                this.carrito_arr = response.data;
+                this.calcular_carrito();
+              }
+            );
           }else{
             this.user_lc = undefined;   
           }
@@ -70,4 +82,9 @@ export class NavComponent implements OnInit {
     }
   }
 
+  calcular_carrito(){
+    this.carrito_arr.forEach(element=>{
+      this.subtotal = this.subtotal + parseFloat(element.producto.precio);
+    });
+  }
 }
