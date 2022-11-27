@@ -191,7 +191,6 @@ export class DireccionesComponent implements OnInit {
             position: 'topRight',
             message: 'Se agregó la nueva dirección correctamente.'
           });
-          
         }
       );
 
@@ -207,6 +206,22 @@ export class DireccionesComponent implements OnInit {
         message: 'Los datos del formulario no son validos'
       });
     }
+  }
+
+  establecer_principal(id:any){
+    this._clienteService.cambiar_direccion_principal_cliente(id, localStorage.getItem('_id'),this.token).subscribe(
+      response=>{
+        iziToast.show({
+          title: 'SUCCESS',
+          titleColor: '#1DC74C',
+          color: '#FFF',
+          class:  'text-success',
+          position: 'topRight',
+          message: 'Se actualizó la dirección principal.'
+        });
+        this.obtener_direccion();
+      }
+    );
   }
 
 }

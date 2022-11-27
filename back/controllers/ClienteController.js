@@ -258,6 +258,24 @@ const obtener_direcciones_todas_cliente = async function (req,res){
     }
 }
 
+const cambiar_direccion_principal_cliente = async function (req,res){
+    if (req.user) {
+        var id = req.params['id'];
+        var cliente = req.params['cliente'];
+        let direcciones = await Direccion.find({cliente:cliente});
+        direcciones.forEach(async element=>{
+            await Direccion.findByIdAndUpdate({_id:element._id},{principal:false});
+        });
+
+        await Direccion.findByIdAndUpdate({_id:id},{principal:true});
+        
+        res.status(200).send({data:true});
+    }else{
+        res.status(500).send({message: 'NoAccess'});
+    }
+}
+
+
 
 module.exports = {
     registro_cliente,
@@ -270,5 +288,6 @@ module.exports = {
     obtener_cliente_guest,
     actualizar_perfil_cliente_guest,
     registro_direccion_cliente,
-    obtener_direcciones_todas_cliente
+    obtener_direcciones_todas_cliente,
+    cambiar_direccion_principal_cliente
 }
