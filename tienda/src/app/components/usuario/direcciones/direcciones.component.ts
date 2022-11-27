@@ -20,6 +20,8 @@ export class DireccionesComponent implements OnInit {
     distrito: '',
     principal: false
   };
+
+  public direcciones: Array<any>=[];
   public regiones : Array<any>=[];
   public provincias : Array<any>=[];
   public distritos : Array<any>=[];
@@ -54,6 +56,17 @@ export class DireccionesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.obtener_direccion();
+  }
+
+  obtener_direccion(){
+    this._clienteService.obtener_direcciones_todas_cliente(this.token,localStorage.getItem('_id')).subscribe(
+      response=>{
+        this.direcciones=response.data;
+        console.log(response);
+        
+      }
+    )
   }
 
   select_pais(){

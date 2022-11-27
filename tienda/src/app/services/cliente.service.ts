@@ -91,4 +91,9 @@ export class ClienteService {
     return this._http.post(this.url+'registro_direccion_cliente',data,{headers:headers});
   }
 
+  obtener_direcciones_todas_cliente(token:any,id:any):Observable<any>{
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
+    return this._http.get(this.url+'obtener_direcciones_todas_cliente/'+id,{headers:headers});
+  }
+
 }

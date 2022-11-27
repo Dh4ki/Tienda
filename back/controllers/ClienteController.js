@@ -248,6 +248,16 @@ const registro_direccion_cliente = async function (req,res){
     }
 }
 
+const obtener_direcciones_todas_cliente = async function (req,res){
+    if (req.user) {
+        var id = req.params['id'];
+        let direcciones = await Direccion.find({cliente:id}).populate('cliente').sort({createdAt:-1});
+        res.status(200).send({data:direcciones});
+    }else{
+        res.status(500).send({message: 'NoAccess'});
+    }
+}
+
 
 module.exports = {
     registro_cliente,
@@ -259,5 +269,6 @@ module.exports = {
     eliminar_cliente_admin,
     obtener_cliente_guest,
     actualizar_perfil_cliente_guest,
-    registro_direccion_cliente
+    registro_direccion_cliente,
+    obtener_direcciones_todas_cliente
 }
