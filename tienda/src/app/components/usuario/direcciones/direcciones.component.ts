@@ -30,6 +30,8 @@ export class DireccionesComponent implements OnInit {
   public provincias_arr : Array<any>=[];
   public distritos_arr : Array<any>=[];
 
+  public load_data = true;
+
   constructor(
     private _guestService : GuestService,
     private _clienteService: ClienteService
@@ -63,10 +65,9 @@ export class DireccionesComponent implements OnInit {
     this._clienteService.obtener_direcciones_todas_cliente(this.token,localStorage.getItem('_id')).subscribe(
       response=>{
         this.direcciones=response.data;
-        console.log(response);
-        
+        this.load_data = false;
       }
-    )
+    );
   }
 
   select_pais(){
@@ -193,7 +194,7 @@ export class DireccionesComponent implements OnInit {
           });
         }
       );
-
+      this.obtener_direccion();
       console.log(data);
       
     }else{
