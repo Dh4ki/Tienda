@@ -4,11 +4,11 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var ConfigSchema = Schema({
-    categorias: [{type: Object, require: true}],
-    titulo: {type: String, require: true},
-    logo: {type: String, require: true},
-    serie: {type: String, require: true},
-    correlativo: {type: String, require: true},
+    categorias: [{type: Object, required: true}],
+    titulo: {type: String, required: true},
+    logo: {type: String, required: true},
+    serie: {type: String, required: true},
+    correlativo: {type: String, required: true},
 });
 
 module.exports = mongoose.model('config',ConfigSchema);

@@ -8,7 +8,7 @@ var CuponSchema = Schema({
     tipo: {type: String, required: true},//porcentaje o precio fijo
     valor: {type: Number, required: true},
     limite: {type: Number, required: true},
-    createdAt: {type: Date, default: Date.now, require: true}
+    createdAt: {type: Date, default: Date.now, required: true}
 });
 
 module.exports = mongoose.model('cupon',CuponSchema);
