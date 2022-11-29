@@ -34,8 +34,13 @@ export class GuestService {
   get_distritos():Observable<any>{
     return this._http.get('./assets/distritos.json');
   }
+
   get_provincias():Observable<any>{
     return this._http.get('./assets/provincias.json');
+  }
+
+  get_envios():Observable<any>{
+    return this._http.get('./assets/envios.json');
   }
 
 }

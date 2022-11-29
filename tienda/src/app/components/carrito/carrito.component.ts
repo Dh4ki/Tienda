@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { GLOBAL } from 'src/app/services/GLOBAL';
 import { io } from "socket.io-client";
+import { GuestService } from 'src/app/services/guest.service';
 
 declare var iziToast:any;
 declare var Cleave:any;
@@ -18,14 +19,18 @@ export class CarritoComponent implements OnInit {
   public token;
   public url;
   public subtotal = 0;
-  public total_pagar = 0;
+  public total_pagar:any = 0;
 
   public carrito_arr :Array<any> = [];
 
   public socket=io('http://localhost:4201');
+  public direccion_principal : any = {};
+  public envios : Array<any>=[];
+  public precio_envio = "0";
 
   constructor(
-    private _clienteService : ClienteService
+    private _clienteService : ClienteService,
+    private _guestService: GuestService
   ) {
     this.idcliente = localStorage.getItem('_id');
     this.url = GLOBAL.url;
@@ -38,7 +43,12 @@ export class CarritoComponent implements OnInit {
         this.calcular_carrito();
       }
     );
-   }
+    this._guestService.get_envios().subscribe(
+      response=>{
+        this.envios = response;
+      }
+    );
+    }
 
   ngOnInit(): void {
     setTimeout(()=>{
@@ -54,6 +64,7 @@ export class CarritoComponent implements OnInit {
       });
       var sidebar = new StickySidebar('.sidebar-sticky',{topSpacing:20});
     });
+    this.obtener_direccion_principal();
   }
 
   calcular_carrito(){
@@ -85,4 +96,21 @@ export class CarritoComponent implements OnInit {
       }
     );
   }
+
+  obtener_direccion_principal(){
+    this._clienteService.obtener_direccion_principal_cliente(localStorage.getItem('_id'),this.token).subscribe(
+      response=>{
+        if (response.data == undefined) {
+          this.direccion_principal = undefined;
+        }else{
+          this.direccion_principal = response.data;
+        }
+      }
+    );
+  }
+
+  calcular_total(){
+    this.total_pagar = parseFloat(this.subtotal.toString()) + parseFloat(this.precio_envio);
+  }
+
 }
